@@ -1,3 +1,7 @@
+body {
+    font-family: sans-serif;
+}
+
 #custom-button {
     margin-left: 20px;
     padding: 10px;
@@ -16,4 +20,20 @@
     margin-left: 10px;
     font-family: sans-serif;
     color:#aaa;
+}
+
+#query {
+    /*background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+    /*background-position: 10px 12px; /* Position the search icon */
+    /*background-repeat: no-repeat; /* Do not repeat the icon image */
+    line-height: normal;
+    width: 50%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 10px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+
+.search-bar {
+    line-height: 100px;
 }
