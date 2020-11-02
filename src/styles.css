@@ -1,0 +1,19 @@
+#custom-button {
+    margin-left: 20px;
+    padding: 10px;
+    color: white;
+    background-color:cadetblue;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#custom-button:hover{
+    background-color: #00b28f;
+}
+
+#custom-text {
+    margin-left: 10px;
+    font-family: sans-serif;
+    color:#aaa;
+}
