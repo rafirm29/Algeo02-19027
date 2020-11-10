@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+
+{% block query %}
+{% for file in result %}
+<tr>
+    <h4>{{file[0]}}. {{file[1]}}</h4>
+    <p>Tingkat kemiripan: {{file[2]}}</p>
+    <p>{{file[3]}}</p>
+</tr>
+{% endfor %}
+{% endblock %}
+
+<!-- TO BE FINISHED
+{% block table %}
+<table>
+    <tr>
+        <th>Term</th>
+        <th>Query</th>
+        {% for i in range(column) %}
+        <th></th>
+        {% endfor %}
+    </tr>
+    {% for i in range(row) %}
+    <tr>
+
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+-->
