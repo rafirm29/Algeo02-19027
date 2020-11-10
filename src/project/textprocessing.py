@@ -1,5 +1,3 @@
-from removeduplicate import removeduplicatex
-from jumlahkata import jumlahKata
 from cosinesim import sim
 
 def inputKata(b):
