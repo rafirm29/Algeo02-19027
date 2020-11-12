@@ -10,21 +10,29 @@
 {% endfor %}
 {% endblock %}
 
-<!-- TO BE FINISHED
-{% block table %}
-<table>
-    <tr>
-        <th>Term</th>
-        <th>Query</th>
-        {% for i in range(column) %}
-        <th></th>
-        {% endfor %}
-    </tr>
-    {% for i in range(row) %}
-    <tr>
 
-    </tr>
-    {% endfor %}
+{% block table %}
+<table class="table">
+    <!--First Row-->
+    <thead>
+        <tr> 
+            <th scope="col">Term</th>
+            <th scope="col">Query</th>
+            {% for x in thead %}
+            <th scope="col">{{x[0]}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <!--Table Contents-->
+    <tbody>
+        {% for y in tbody %}
+        <tr>
+            <th scope="row">{{y[0]}}</th>
+            {% for z in range(1, rowlength) %}
+            <td>{{y[z]}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 {% endblock %}
--->
