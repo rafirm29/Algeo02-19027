@@ -134,28 +134,29 @@ def search():
     ##### Tampil Matriks #####
     ##########################  
 
-    '''
     number = len(Qresult) + 1
-    nrow = len(arr) # Jumlah kata
-    ncolumn = number + 1 # Jumlah dokumen
+
     # tampil matriks
-    table = [[0 for j in range(number+1)]for i in range(len(arr)+2)]
-    table[0][0] = 'term  '
-    for i in range(len(arr)+2):
+    row = inputKata(search)
+    row = removeduplicatex(row)
+    table = [[0 for j in range(number+1)]for i in range(len(row)+1)]
+    for i in range(len(row)+1):
         for j in range(number+1):
-            if (j==0 and i != 0 ):
+            if (j==0 and i != 0 ): #mengisi vektor dokumen
                 table[i][j]=str(removeVec[i-1]) + "  "
-            elif(i==0 and j==1):
-                table[i][j] = 'query  '
+            elif(i==0 and j==1): #menulis 'query' pada kolom 0 baris 1
+                table[i][j] = 'query  ' 
+            elif (i==0 and j==0):
+                table[i][j] = 'term  '
             elif ( j!=0 and i==0):
-                table[i][j]=str(arr[j-2][0]) + "  "
-            elif(j==1 and i!=0):
+                table[i][j]=str(arr[j-2][0]) + "  " #menulis nama dokumen
+            elif(j==1 and i!=0): #menulis vektor query
                 table[i][j]=sumofword[i-1]    
 
     kolom = 2
     for files in onlyfiles:
         if (kolom>1):
-            filename = "files/" + files
+            filename = "test/" + files
             clean = clean_file(filename)
             stemfile = stem(clean)
             arraytostring = listToString(stemfile)
@@ -163,18 +164,15 @@ def search():
 
             arrQuery = inputKata(search) #membuat input query menjadi array of words
             sumofwordDoc = jumlahKata(arrayfile, removeVec) #membuat array vectorizer pada file yang dibaca
-        for i in range(len(arr)+2):
-            if (kolom!=1 and i!=0):
+        for i in range(len(row)+1):
+            if (kolom!=1 and i!=0): #menulis vektor setiap dokumen
                 table[i][kolom]=sumofwordDoc[i-1]
         kolom += 1
 
-    for i in range(len(arr)+2):
-        for j in range(number+1):
-            print(table[i][j],end="")
-        print()
-    '''
+    del table[0]
+    rowlength = len(table[0])
 
-    return render_template("search.html", result=Qresult)
+    return render_template("search.html", result=Qresult, thead=arr, tbody=table, rowlength=rowlength)
 
 @app.route('/perihal/', methods=['GET'])
 def perihal():
