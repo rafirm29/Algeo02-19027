@@ -14,10 +14,14 @@ def clean_file(name):
     
     new=[]
     for line in f:
-        new.append(line)
+        newline = line.replace("\n", "")
+        new.append(newline)
+    new = ''.join(new)
+    newtext = []
+    newtext.append(new)
     
     new_clean=[]
-    for d in new:
+    for d in newtext:
         # Remove Unicode
         new_test = re.sub(r'[^\x00-\x7F]+', ' ', d)
         # Remove Mentions
@@ -31,7 +35,6 @@ def clean_file(name):
         # Remove the doubled space
         new_test = re.sub(r'\s{2,}', ' ', new_test)
         new_clean.append(new_test)
-        
     return new_clean
     
 
