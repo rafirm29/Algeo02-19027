@@ -3,7 +3,7 @@
 {% block query %}
 {% for file in result %}
 <tr>
-    <h4>{{file[0]}}. {{file[1]}}</h4>
+    <a href="#"><h4>{{file[0]}}. {{file[1]}}</h4></a>
     <p>Tingkat kemiripan: {{file[2]}}</p>
     <p>{{file[3]}}</p>
 </tr>
@@ -12,14 +12,14 @@
 
 
 {% block table %}
-<table class="table">
+<table class="table table-bordered table-striped table-hover">
     <!--First Row-->
     <thead>
         <tr> 
-            <th scope="col">Term</th>
-            <th scope="col">Query</th>
+            <th scope="col" class="text-center">Term</th>
+            <th scope="col" class="text-center">Query</th>
             {% for x in thead %}
-            <th scope="col">{{x[0]}}</th>
+            <th scope="col" class="text-center">{{x[0]}}</th>
             {% endfor %}
         </tr>
     </thead>
