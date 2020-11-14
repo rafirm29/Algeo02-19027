@@ -3,28 +3,36 @@
 {% block query %}
 {% for file in result %}
 <tr>
-    <h4>{{file[0]}}. {{file[1]}}</h4>
+    <a href="#"><h4>{{file[0]}}. {{file[1]}}</h4></a>
     <p>Tingkat kemiripan: {{file[2]}}</p>
     <p>{{file[3]}}</p>
 </tr>
 {% endfor %}
 {% endblock %}
 
-<!-- TO BE FINISHED
-{% block table %}
-<table>
-    <tr>
-        <th>Term</th>
-        <th>Query</th>
-        {% for i in range(column) %}
-        <th></th>
-        {% endfor %}
-    </tr>
-    {% for i in range(row) %}
-    <tr>
 
-    </tr>
-    {% endfor %}
+{% block table %}
+<table class="table table-bordered table-striped table-hover">
+    <!--First Row-->
+    <thead>
+        <tr> 
+            <th scope="col" class="text-center">Term</th>
+            <th scope="col" class="text-center">Query</th>
+            {% for x in thead %}
+            <th scope="col" class="text-center">{{x[0]}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <!--Table Contents-->
+    <tbody>
+        {% for y in tbody %}
+        <tr>
+            <th scope="row">{{y[0]}}</th>
+            {% for z in range(1, rowlength) %}
+            <td>{{y[z]}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 {% endblock %}
--->
