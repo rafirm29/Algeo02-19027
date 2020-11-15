@@ -8,6 +8,7 @@ from cosinesim import sim
 from flask import Flask, request, jsonify, flash, redirect, url_for, render_template, request
 from flask import send_from_directory
 from werkzeug.utils import secure_filename
+from webScrapping import webScrapping
 
 path = os.getcwd()
 # file Upload
@@ -45,19 +46,24 @@ def home():
 @app.route('/', methods=['POST'])
 def upload():
     if request.method == 'POST':
+        if request.form['button'] == '  Add  ':
+            link = request.form['link']
+            title = request.form['title']
+            webScrapping(link, title)
+            # return jsonify(link)
+        elif request.form['button'] == 'Upload':
+            if 'files[]' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
 
-        if 'files[]' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
+            files = request.files.getlist('files[]')
 
-        files = request.files.getlist('files[]')
+            for file in files:
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        for file in files:
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-        flash('File(s) successfully uploaded')
+            flash('File(s) successfully uploaded')
         return redirect('/')
 
 @app.route('/search/', methods=['GET'])
@@ -91,7 +97,7 @@ def search():
         stemfile = stem(clean)
         arraytostring = listToString(stemfile)
         arrayfile = inputKata(arraytostring)
-        fp = open(filename, 'r', encoding="utf8")
+        fp= open(filename, 'r', encoding="utf8")
         c = listToString(fp)
         count = 0
         for word in c.split():
