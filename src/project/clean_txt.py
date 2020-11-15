@@ -9,7 +9,7 @@ import string
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
 def clean_file(name):
-    file = open(name, 'r')
+    file = open(name, 'r', encoding="utf8")
     f = file.readlines()
     
     new=[]

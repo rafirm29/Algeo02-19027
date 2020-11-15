@@ -59,30 +59,13 @@ def upload():
 
         flash('File(s) successfully uploaded')
         return redirect('/')
-    '''
-    if request.method == 'POST':
-        # Mengecek apakah post request memiiki bagian file
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # Jika tidak select file
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(request.url)
-    return render_template("index.html")
-    '''
 
 @app.route('/search/', methods=['GET'])
 def search():
     query = request.args['q'] # Input query
 
     ############################
-    ##### Query Processing #####
+    ##### Document Processing #####
     ############################
 
     onlyfiles = next(os.walk('../test'))[2] #open semua file pada directory
@@ -108,9 +91,10 @@ def search():
         stemfile = stem(clean)
         arraytostring = listToString(stemfile)
         arrayfile = inputKata(arraytostring)
-        fp = open(filename, 'r')
+        fp = open(filename, 'r', encoding="utf8")
         c = listToString(fp)
-
+            for word in c.split():
+                count += 1
         arrQuery = inputKata(search) #membuat input query menjadi array of words
         sumofword = jumlahKata(arrQuery, removeVec) #membuat array vectorizer pada query
         sumofwordDoc = jumlahKata(arrayfile, removeVec) #membuat array vectorizer pada file yang dibaca
@@ -120,14 +104,14 @@ def search():
         N = cosinesimilarity * 100
         firstsen = c.split(".")
         # print("Kalimat pertama : " + firstsen[0] + '.')
-        arr.append((docs,N,firstsen[0] + ".")) #membuat tupple untuk menyimpan (namafile,sim)
-        sorted.append((docs,N,firstsen[0] + ".")) #membuat tupple untuk menyimpan (namafile,sim)
+        arr.append((docs,N)) #membuat tupple untuk menyimpan (namafile,sim)
+        sorted.append((docs,N,firstsen[0] + ".",count)) #membuat tupple untuk menyimpan (namafile,sim)
 
     tempresult = sort(sorted)
     Qresult = []
     i = 1
     for q in tempresult:
-        Qresult.append((i, q[0], str('{0:.2f}'.format(q[1])) + " %", q[2]))
+        Qresult.append((i, q[0], str('{0:.2f}'.format(q[1])) + " %", q[2], q[3]))
         i += 1
 
 
