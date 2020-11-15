@@ -12,10 +12,11 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 app.secret_key = "secret key"
+app.add_url_rule('/test/<path:filename>', endpoint='test', view_func=app.send_static_file)
 
 path = os.getcwd()
 # file Upload
-UPLOAD_FOLDER = os.path.join(path, 'test')
+UPLOAD_FOLDER = os.path.join(path, '../test')
 # Make directory if "test" folder not exists
 if not os.path.isdir(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
@@ -84,14 +85,14 @@ def search():
     ##### Query Processing #####
     ############################
 
-    onlyfiles = next(os.walk('./test'))[2] #open semua file pada directory
+    onlyfiles = next(os.walk('../test'))[2] #open semua file pada directory
     search = query #input query searching
     arr = [] 
     sorted =[]
     searchtoarray = inputKata(search) #membuat string dari query menjadi array of words
     for files in onlyfiles:
         
-        filename = "test/" + files
+        filename = "../test/" + files
         clean = clean_file(filename) #cleaning
         stemfile = stem(clean) #stemming
         arraytostring = listToString(stemfile) #mengubah array of kalimat menjadi string
@@ -102,7 +103,7 @@ def search():
 
     for files in onlyfiles:
         
-        filename = "test/" + files
+        filename = "../test/" + files
         clean = clean_file(filename)
         stemfile = stem(clean)
         arraytostring = listToString(stemfile)
@@ -156,7 +157,7 @@ def search():
     kolom = 2
     for files in onlyfiles:
         if (kolom>1):
-            filename = "test/" + files
+            filename = "../test/" + files
             clean = clean_file(filename)
             stemfile = stem(clean)
             arraytostring = listToString(stemfile)
