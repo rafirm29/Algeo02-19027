@@ -59,23 +59,6 @@ def upload():
 
         flash('File(s) successfully uploaded')
         return redirect('/')
-    '''
-    if request.method == 'POST':
-        # Mengecek apakah post request memiiki bagian file
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # Jika tidak select file
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(request.url)
-    return render_template("index.html")
-    '''
 
 @app.route('/search/', methods=['GET'])
 def search():
@@ -108,7 +91,7 @@ def search():
         stemfile = stem(clean)
         arraytostring = listToString(stemfile)
         arrayfile = inputKata(arraytostring)
-        fp = open(filename, 'r')
+        fp = open(filename, 'r', encoding="utf8")
         c = listToString(fp)
 
         arrQuery = inputKata(search) #membuat input query menjadi array of words
