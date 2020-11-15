@@ -3,7 +3,7 @@
 {% block query %}
 {% for file in result %}
 <tr>
-    <a href="#"><h4>{{file[0]}}. {{file[1]}}</h4></a>
+    <a href="{{ url_for('test', filename=file[1]) }}"><h4>{{file[0]}}. {{file[1][:-4]}}</h4></a>
     <p>Tingkat kemiripan: {{file[2]}}</p>
     <p>{{file[3]}}</p>
 </tr>
