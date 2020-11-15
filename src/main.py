@@ -111,7 +111,7 @@ def search():
     Qresult = []
     i = 1
     for q in tempresult:
-        Qresult.append((i, q[0], str('{0:.2f}'.format(q[1])) + " %", q[2]))
+        Qresult.append((i, q[0], str('{0:.2f}'.format(q[1])) + " %", q[2], q[3]))
         i += 1
 
 
