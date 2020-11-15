@@ -22,18 +22,18 @@ def clean_file(name):
     
     new_clean=[]
     for d in newtext:
-        # Remove Unicode
+        # Menghilangkan Unicode
         new_test = re.sub(r'[^\x00-\x7F]+', ' ', d)
-        # Remove Mentions
+        # Menghilangkan @
         new_test = re.sub(r'@\w+', '', new_test)
-        # Lowercase the document
+        # Menghilangkan kapital
         new_test = new_test.lower()
-        # Remove punctuations
-        new_test = re.sub(r'[%s]' % re.escape(string.punctuation), ' ', new_test)
-        # Lowercase the numbers
-        new_test = re.sub(r'[0-9]', '', new_test)
-        # Remove the doubled space
+        # Menghilangkan spasi ganda
         new_test = re.sub(r'\s{2,}', ' ', new_test)
+        # Menghilangkan tanda baca
+        new_test = re.sub(r'[%s]' % re.escape(string.punctuation), ' ', new_test)
+        # Memproses angka
+        new_test = re.sub(r'[0-9]', '', new_test)
         new_clean.append(new_test)
     return new_clean
     
