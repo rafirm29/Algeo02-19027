@@ -106,11 +106,14 @@ def search():
         count = 0
         for word in c.split():
             count += 1
-        arrQuery = inputKata(search) #membuat input query menjadi array of words
+        arrQuery = cleanQuery(search)
+        stemQuery = stem(arrQuery)
+        listToStringQ = listToString(stemQuery)
+        arrQuery = inputKata(listToStringQ) #membuat input query menjadi array of words
         sumofword = jumlahKata(arrQuery, removeVec) #membuat array vectorizer pada query
         sumofwordDoc = jumlahKata(arrayfile, removeVec) #membuat array vectorizer pada file yang dibaca
         cosinesimilarity = sim(sumofword, sumofwordDoc) #calculate sim
-        
+
         docs = files
         N = cosinesimilarity * 100
         firstsen = c.split(".")
@@ -133,8 +136,11 @@ def search():
     number = len(Qresult) + 1
 
     # tampil matriks
-    row = inputKata(search)
-    row = removeduplicatex(row)
+    arrQuery = cleanQuery(search)
+    stemQuery = stem(arrQuery)
+    listToStringQ = listToString(stemQuery)
+    searchtoarray = inputKata(listToStringQ)
+    row = removeduplicatex(searchtoarray)
     table = [[0 for j in range(number+1)]for i in range(len(row)+1)]
     for i in range(len(row)+1):
         for j in range(number+1):
