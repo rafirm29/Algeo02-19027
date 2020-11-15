@@ -16,7 +16,7 @@
                         <input type="file" name="files[]" class="form-control-file col-10 mb-2" id="docs" multiple="true" autocomplete="off" style="width: 350px;">
                     </div>
                     <div class="col">
-                        <input type="submit" class="btn btn-secondary mb-2" value="Upload">
+                        <input type="submit" name="button" class="btn btn-secondary mb-2" value="Upload">
                     </div>
                 </div>
             </form>
@@ -26,13 +26,13 @@
             <form class="form-inline" method = "POST" enctype = "multipart/form-data">
                 <div class="row">
                     <div class="col">
-                        <input type="text" id="query" class="form-control col-12 mb-2" name="q" placeholder="Input link" style="width: 220px;">
+                        <input type="text" name="link" id="query" class="form-control col-12 mb-2" name="q" placeholder="Input link" style="width: 220px;">
                     </div>
                     <div class="col">
-                        <input type="text" id="query" class="form-control col-12 mb-2" name="q" placeholder="Input title" style="width: 100px;">
+                        <input type="text" name="title" id="query" class="form-control col-12 mb-2" name="q" placeholder="Input title" style="width: 100px;">
                     </div>
                     <div class="col">
-                        <input type="submit" class="btn btn-success mb-2" value="  Add  ">
+                        <input type="submit" name="button" class="btn btn-success mb-2" value="  Add  ">
                     </div>
                 </div>
             </form>
