@@ -65,7 +65,7 @@ def search():
     query = request.args['q'] # Input query
 
     ############################
-    ##### Query Processing #####
+    ##### Document Processing #####
     ############################
 
     onlyfiles = next(os.walk('../test'))[2] #open semua file pada directory
@@ -93,7 +93,8 @@ def search():
         arrayfile = inputKata(arraytostring)
         fp = open(filename, 'r', encoding="utf8")
         c = listToString(fp)
-
+            for word in c.split():
+                count += 1
         arrQuery = inputKata(search) #membuat input query menjadi array of words
         sumofword = jumlahKata(arrQuery, removeVec) #membuat array vectorizer pada query
         sumofwordDoc = jumlahKata(arrayfile, removeVec) #membuat array vectorizer pada file yang dibaca
@@ -103,8 +104,8 @@ def search():
         N = cosinesimilarity * 100
         firstsen = c.split(".")
         # print("Kalimat pertama : " + firstsen[0] + '.')
-        arr.append((docs,N,firstsen[0] + ".")) #membuat tupple untuk menyimpan (namafile,sim)
-        sorted.append((docs,N,firstsen[0] + ".")) #membuat tupple untuk menyimpan (namafile,sim)
+        arr.append((docs,N)) #membuat tupple untuk menyimpan (namafile,sim)
+        sorted.append((docs,N,firstsen[0] + ".",count)) #membuat tupple untuk menyimpan (namafile,sim)
 
     tempresult = sort(sorted)
     Qresult = []
