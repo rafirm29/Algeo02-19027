@@ -45,3 +45,21 @@ def stem(kalimat):
         stemmer = factory.create_stemmer()
         output = stemmer.stem(i)
     return(output)
+
+def cleanQuery(new):
+    new_clean=[]
+    # Remove Unicode
+    new_test = re.sub(r'[^\x00-\x7F]+', ' ', new)
+    # Remove Mentions
+    new_test = re.sub(r'@\w+', '', new_test)
+    # Lowercase the document
+    new_test = new_test.lower()
+    # Remove punctuations
+    new_test = re.sub(r'[%s]' % re.escape(string.punctuation), ' ', new_test)
+    # Lowercase the numbers
+    new_test = re.sub(r'[0-9]', '', new_test)
+    # Remove the doubled space
+    new_test = re.sub(r'\s{2,}', ' ', new_test)
+    new_clean.append(new_test)
+        
+    return new_clean

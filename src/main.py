@@ -3,7 +3,7 @@ import math
 import sys
 sys.path.insert(1, 'project')
 from textprocessing import inputKata, gabungarray, listToString, removeduplicatex, jumlahKata
-from clean_txt import clean_file, stem
+from clean_txt import clean_file, stem, cleanQuery
 from cosinesim import sim
 from flask import Flask, request, jsonify, flash, redirect, url_for, render_template, request
 from flask import send_from_directory
@@ -17,7 +17,7 @@ UPLOAD_FOLDER = os.path.join(path, '../test')
 if not os.path.isdir(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
 
-app = Flask(__name__, static_folder="..")
+app = Flask(__name__, static_folder="../test")
 
 app.secret_key = "secret key"
 
@@ -78,7 +78,11 @@ def search():
     search = query #input query searching
     arr = [] 
     sorted =[]
-    searchtoarray = inputKata(search) #membuat string dari query menjadi array of words
+    arrQuery = cleanQuery(search)
+    stemQuery = stem(arrQuery)
+    listToStringQ = listToString(stemQuery)
+    searchtoarray = inputKata(listToStringQ) #membuat input query menjadi array of words
+
     for files in onlyfiles:
         
         filename = "../test/" + files
@@ -106,7 +110,7 @@ def search():
         sumofword = jumlahKata(arrQuery, removeVec) #membuat array vectorizer pada query
         sumofwordDoc = jumlahKata(arrayfile, removeVec) #membuat array vectorizer pada file yang dibaca
         cosinesimilarity = sim(sumofword, sumofwordDoc) #calculate sim
-
+        
         docs = files
         N = cosinesimilarity * 100
         firstsen = c.split(".")
