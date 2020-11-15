@@ -8,11 +8,7 @@ from cosinesim import sim
 from flask import Flask, request, jsonify, flash, redirect, url_for, render_template, request
 from flask import send_from_directory
 from werkzeug.utils import secure_filename
-
-app = Flask(__name__)
-
-app.secret_key = "secret key"
-app.add_url_rule('/test/<path:filename>', endpoint='test', view_func=app.send_static_file)
+from webScrapping import webScrapping
 
 path = os.getcwd()
 # file Upload
@@ -20,6 +16,11 @@ UPLOAD_FOLDER = os.path.join(path, '../test')
 # Make directory if "test" folder not exists
 if not os.path.isdir(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
+
+app = Flask(__name__, static_folder="..")
+
+app.secret_key = "secret key"
+
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = {'txt'}
 
@@ -40,33 +41,38 @@ def sort(array): # Sorting berdasarkan similarity
 
 @app.route('/')
 def home():
-    return render_template("index.html")
+    return render_template("home.html")
 
 @app.route('/', methods=['POST'])
 def upload():
     if request.method == 'POST':
+        if request.form['button'] == '  Add  ':
+            link = request.form['link']
+            title = request.form['title']
+            webScrapping(link, title)
+            # return jsonify(link)
+        elif request.form['button'] == 'Upload':
+            if 'files[]' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
 
-        if 'files[]' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
+            files = request.files.getlist('files[]')
 
-        files = request.files.getlist('files[]')
+            for file in files:
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        for file in files:
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-        flash('File(s) successfully uploaded')
+            flash('File(s) successfully uploaded')
         return redirect('/')
 
 @app.route('/search/', methods=['GET'])
 def search():
     query = request.args['q'] # Input query
 
-    ############################
+    ###############################
     ##### Document Processing #####
-    ############################
+    ###############################
 
     onlyfiles = next(os.walk('../test'))[2] #open semua file pada directory
     search = query #input query searching
@@ -91,10 +97,11 @@ def search():
         stemfile = stem(clean)
         arraytostring = listToString(stemfile)
         arrayfile = inputKata(arraytostring)
-        fp = open(filename, 'r', encoding="utf8")
+        fp= open(filename, 'r', encoding="utf8")
         c = listToString(fp)
-            for word in c.split():
-                count += 1
+        count = 0
+        for word in c.split():
+            count += 1
         arrQuery = inputKata(search) #membuat input query menjadi array of words
         sumofword = jumlahKata(arrQuery, removeVec) #membuat array vectorizer pada query
         sumofwordDoc = jumlahKata(arrayfile, removeVec) #membuat array vectorizer pada file yang dibaca
@@ -105,7 +112,7 @@ def search():
         firstsen = c.split(".")
         # print("Kalimat pertama : " + firstsen[0] + '.')
         arr.append((docs,N)) #membuat tupple untuk menyimpan (namafile,sim)
-        sorted.append((docs,N,firstsen[0] + ".",count)) #membuat tupple untuk menyimpan (namafile,sim)
+        sorted.append((docs,N,firstsen[0] + ".", count)) #membuat tupple untuk menyimpan (namafile,sim)
 
     tempresult = sort(sorted)
     Qresult = []
