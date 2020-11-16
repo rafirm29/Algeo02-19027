@@ -8,6 +8,7 @@ import re
 import string
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
+#cleaning file
 def clean_file(name):
     file = open(name, 'r', encoding="utf8")
     f = file.readlines()
@@ -46,6 +47,7 @@ def stem(kalimat):
         output = stemmer.stem(i)
     return(output)
 
+# cleaning query
 def cleanQuery(new):
     new_clean=[]
     # Menghilangkan Unicode
