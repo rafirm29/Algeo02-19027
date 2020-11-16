@@ -1,5 +1,6 @@
 from cosinesim import sim
 
+#menerima string setelah proses cleaning dan stemming dan mengembalikannya sebagai array of words.
 def inputKata(b):
     i = 0
     count = 0
@@ -14,6 +15,7 @@ def inputKata(b):
     
     return new
 
+#mengubah array of words menjadi string
 def listToString(s):  
     str1 = ""  
     for i in s:  
@@ -21,6 +23,7 @@ def listToString(s):
     # return string   
     return str1  
 
+#menggabungkan dua array of words
 def gabungarray(first,add):
     size = len(first) + len(add) - 1
     newarr = ['' for i in range (size)]
@@ -31,6 +34,7 @@ def gabungarray(first,add):
 
     return newarr
 
+# menghapus kata-kata yang sama dari array of words dan mengembalikan array of words dengan elemen-elemen kata yang unik.
 def removeduplicatex(T):
     M = []
 
@@ -41,6 +45,8 @@ def removeduplicatex(T):
 
     return M
 
+# masing-masing elemen array of words yang terdapat pada suatu dokumen dan suatu query.
+# countvectorizer manual
 def jumlahKata(T, Q):
     C = [0 for i in range(len(Q))]
     for i in range(len(Q)):
