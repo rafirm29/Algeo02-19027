@@ -1,4 +1,5 @@
 import math
+#menghitung cosine similarity
 def sim(arrA, arrB):
     dot = 0
     sumA = 0

@@ -24,20 +24,20 @@ def clean_file(name):
     for d in newtext:
         # Menghilangkan Unicode
         new_test = re.sub(r'[^\x00-\x7F]+', ' ', d)
-        # Menghilangkan @
-        new_test = re.sub(r'@\w+', '', new_test)
+        # Memproses angka
+        new_test = re.sub(r'[0-9]', '', new_test)
         # Menghilangkan kapital
         new_test = new_test.lower()
+        # Menghilangkan @
+        new_test = re.sub(r'@\w+', '', new_test)
         # Menghilangkan spasi ganda
         new_test = re.sub(r'\s{2,}', ' ', new_test)
         # Menghilangkan tanda baca
         new_test = re.sub(r'[%s]' % re.escape(string.punctuation), ' ', new_test)
-        # Memproses angka
-        new_test = re.sub(r'[0-9]', '', new_test)
         new_clean.append(new_test)
     return new_clean
     
-
+# stemming
 def stem(kalimat):
     output = []
     for i in kalimat:
@@ -48,18 +48,18 @@ def stem(kalimat):
 
 def cleanQuery(new):
     new_clean=[]
-    # Remove Unicode
+    # Menghilangkan Unicode
     new_test = re.sub(r'[^\x00-\x7F]+', ' ', new)
-    # Remove Mentions
+    # Menghilangkan spasi ganda
+    new_test = re.sub(r'\s{2,}', ' ', new_test)    
+    # Menghilangkan @
     new_test = re.sub(r'@\w+', '', new_test)
-    # Lowercase the document
+    # Menghilangkan kapital
     new_test = new_test.lower()
-    # Remove punctuations
+    # Menghilangkan tanda baca
     new_test = re.sub(r'[%s]' % re.escape(string.punctuation), ' ', new_test)
-    # Lowercase the numbers
+    # Memproses angka
     new_test = re.sub(r'[0-9]', '', new_test)
-    # Remove the doubled space
-    new_test = re.sub(r'\s{2,}', ' ', new_test)
     new_clean.append(new_test)
         
     return new_clean

@@ -13,7 +13,7 @@ from webScrapping import webScrapping
 path = os.getcwd()
 # file Upload
 UPLOAD_FOLDER = os.path.join(path, '../test')
-# Make directory if "test" folder not exists
+# Membuat directory jika folder "test" tidak ada
 if not os.path.isdir(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
 
@@ -78,9 +78,9 @@ def search():
     search = query #input query searching
     arr = [] 
     sorted =[]
-    arrQuery = cleanQuery(search)
-    stemQuery = stem(arrQuery)
-    listToStringQ = listToString(stemQuery)
+    arrQuery = cleanQuery(search) #cleaning pada query
+    stemQuery = stem(arrQuery) #stemming pada query
+    listToStringQ = listToString(stemQuery) #mengubah array of sentences menjadi string
     searchtoarray = inputKata(listToStringQ) #membuat input query menjadi array of words
 
     for files in onlyfiles:
@@ -106,9 +106,9 @@ def search():
         count = 0
         for word in c.split():
             count += 1
-        arrQuery = cleanQuery(search)
-        stemQuery = stem(arrQuery)
-        listToStringQ = listToString(stemQuery)
+        arrQuery = cleanQuery(search) #cleaning pada query
+        stemQuery = stem(arrQuery) #stemming pada query
+        listToStringQ = listToString(stemQuery) #mengubah array of sentences menjadi string
         arrQuery = inputKata(listToStringQ) #membuat input query menjadi array of words
         sumofword = jumlahKata(arrQuery, removeVec) #membuat array vectorizer pada query
         sumofwordDoc = jumlahKata(arrayfile, removeVec) #membuat array vectorizer pada file yang dibaca
@@ -136,11 +136,11 @@ def search():
     number = len(Qresult) + 1
 
     # tampil matriks
-    arrQuery = cleanQuery(search)
-    stemQuery = stem(arrQuery)
-    listToStringQ = listToString(stemQuery)
-    searchtoarray = inputKata(listToStringQ)
-    row = removeduplicatex(searchtoarray)
+    arrQuery = cleanQuery(search) #cleaning pada query
+    stemQuery = stem(arrQuery) #stemming pada query
+    listToStringQ = listToString(stemQuery) #mengubah array of sentences menjadi string
+    searchtoarray = inputKata(listToStringQ) #mengubah string menjadi array of words
+    row = removeduplicatex(searchtoarray) #menghapus kata yang sama pada array of words
     table = [[0 for j in range(number+1)]for i in range(len(row)+1)]
     for i in range(len(row)+1):
         for j in range(number+1):
@@ -159,10 +159,10 @@ def search():
     for files in onlyfiles:
         if (kolom>1):
             filename = "../test/" + files
-            clean = clean_file(filename)
-            stemfile = stem(clean)
-            arraytostring = listToString(stemfile)
-            arrayfile = inputKata(arraytostring)
+            clean = clean_file(filename) #cleaning pada dokumen
+            stemfile = stem(clean) #stemming pada dokumen
+            arraytostring = listToString(stemfile) #mengubah array of sentences menjadi string
+            arrayfile = inputKata(arraytostring) #mengubah string menjadi array of words
 
             arrQuery = inputKata(search) #membuat input query menjadi array of words
             sumofwordDoc = jumlahKata(arrayfile, removeVec) #membuat array vectorizer pada file yang dibaca
