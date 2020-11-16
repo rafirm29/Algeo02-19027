@@ -34,7 +34,7 @@ $ pip install requests
 ```
 * Masuk ke directory src `$ cd Algeo02-19027/src`
 * Jalankan main.py `$ Algeo02-19027/src python main.py`
-* Masukkan URL live local server ke web (http://127.0.0.1:500/)
+* Masukkan URL live local server ke web (http://127.0.0.1:5000/)
 * Program siap digunakan
 
 ## Web usage
