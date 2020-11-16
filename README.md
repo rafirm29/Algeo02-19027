@@ -4,15 +4,20 @@
 ## Table of contents
 * [General info](#general-info)
 * [Screenshots](#screenshots)
-* [Technologies](#technologies)
+* [How to use the program](#How-to-use-the-program)
 * [Setup](#setup)
-* [Features](#features)
+* [Web usage](#Web-usage)
 * [Status](#status)
 * [Inspiration](#inspiration)
 * [Contact](#contact)
 
 ## General info
 Program ini dibuat untuk memenuhi Tugas Besar Algeo 02. Program ini menggunakan bahasa pemrograman python dan html. Untuk aplikasi backend menggunakan python dengan framework Flask dan dibantu dengan library Sastrawi, regex, BeautifulSoup, dan requests. Program ini dapat menerima input file ataupun menerima input link yang akan dikonversi menjadi dokumen kemudian disimpan. Kemudian, program menerima search query yang kemudian akan menampilkan hasil dari search query berupa urutan dokumen yang terurut berdasarkan similarity tertinggi.
+
+## Screenshots
+![Home page](./img/Homepage.png)
+![Search result](./img/TabelJumlahKata.png)
+![Perihal](./img/Perihal.jpg)
 
 # How to use the program
 ## Setup
@@ -21,14 +26,14 @@ Cara install:
 * Pastikan pip juga terintall.
 * Install library yang diperlukan berupa flask, sastrawi, regex, beautifulsoup, dan requests.
 ```sh
-pip install flask
-pip install Sastrawi
-pip install regex
-pip install beautifulsoup4
-pip install requests
+$ pip install flask
+$ pip install Sastrawi
+$ pip install regex
+$ pip install beautifulsoup4
+$ pip install requests
 ```
-* Masuk ke directory src '$ cd Algeo02-19027/src'
-* Jalankan main.py '$ Algeo02-19027/src python main.py'
+* Masuk ke directory src `$ cd Algeo02-19027/src`
+* Jalankan main.py `$ Algeo02-19027/src python main.py`
 * Masukkan URL live local server ke web (http://127.0.0.1:500/)
 * Program siap digunakan
 
